@@ -6,15 +6,13 @@ pub fn ln(arguments: &[String]) {
     let mut symbolic = false;
     let mut start_index = 0;
 
-    // Verificăm dacă avem opțiunea -s sau --symbolic
     if let Some(arg) = arguments.get(0) {
         if arg == "-s" || arg == "--symbolic" {
             symbolic = true;
-            start_index = 1; // sarim argumentul opțiune
+            start_index = 1;
         }
     }
 
-    // Obținem fișierul sursă
     let src = match arguments.get(start_index) {
         Some(name) => name,
         None => {
@@ -23,7 +21,6 @@ pub fn ln(arguments: &[String]) {
         }
     };
 
-    // Obținem numele legăturii (destinația)
     let dst = match arguments.get(start_index + 1) {
         Some(name) => name,
         None => {
@@ -32,7 +29,6 @@ pub fn ln(arguments: &[String]) {
         }
     };
 
-    // Creăm link-ul simbolic sau hard
     if symbolic {
         match unix_fs::symlink(src, dst) {
             Ok(_) => {}
